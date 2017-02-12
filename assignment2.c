@@ -15,6 +15,7 @@
 // - Parameters
 // sv: The variable which is shared for every function over all threads
 void learn_workloads(SharedVariable* sv) {
+	unsigned long long t0, t1;
 	// TODO: Fill the body
 	// This function is executed before the scheduling simulation.
 	// You need to calculate the execution time of each thread here.
@@ -28,6 +29,7 @@ void learn_workloads(SharedVariable* sv) {
 
 	// Tip 2. You can get the current time here like:
 	// long long curTime = get_current_time_us();
+	
 }
 
 
