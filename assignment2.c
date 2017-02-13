@@ -43,9 +43,12 @@ void learn_workloads(SharedVariable* sv) {
 // - Return value
 // TaskSelection structure which indicates the scheduled task and the CPU frequency
 TaskSelection select_task(SharedVariable* sv, const int* aliveTasks, long long idleTime) {
+	int i;
+	long long m = -1;
+	int selection = -1;
 	// TODO: Fill the body
 	// This function is executed inside of the scheduling simulation.
-    // You need to implement an energy-efficient EDF (Earliest Deadline First) scheduler.
+        // You need to implement an energy-efficient EDF (Earliest Deadline First) scheduler.
 
 	// Tip 1. You may get the current time elapsed in the scheduler here like:
 	// long long curTime = get_scheduler_elapsed_time_us();
@@ -55,7 +58,7 @@ TaskSelection select_task(SharedVariable* sv, const int* aliveTasks, long long i
 
 	// Sample scheduler: Round robin
 	// It selects a next thread using aliveTasks.
-	static int prev_selection = -1;
+	/*static int prev_selection = -1;
 
 	int i = prev_selection + 1;
 	while(1) {
@@ -67,11 +70,26 @@ TaskSelection select_task(SharedVariable* sv, const int* aliveTasks, long long i
 			break;
 		}
 		++i;
+	}*/
+	printDBG("Time: %llu...", get_scheduler_elapsed_time_us());
+	for (i = 0; i < 8; i++) {
+		if (*(aliveTasks+i)) {
+			if (m == -1) {
+				m = workloadDeadlines[i];
+				selection = i;
+			}
+			else {
+				if (workloadDeadlines[i] < m) {
+					m = workloadDeadlines[i];
+					selection = i;
+				}
+			}
+				
+		}
 	}
-
 	// The retun value can be specified like this:
 	TaskSelection sel;
-	sel.task = prev_selection; // The thread ID which will be scheduled. i.e., 0(BUTTON) ~ 7(BUZZER)
+	sel.task = selection; // The thread ID which will be scheduled. i.e., 0(BUTTON) ~ 7(BUZZER)
 	sel.freq = 1; // Request the maximum frequency (if you want the minimum frequency, use 0 instead.)
 
     return sel;

@@ -43,6 +43,7 @@ typedef struct shared_variable {
 	int touchAlarm;
 	int touchCounter;
 	int rgbState;
+	int counter[8];
 } SharedVariable;
 
 

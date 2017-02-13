@@ -5,6 +5,7 @@
 #include <stdint.h>
 
 void init_shared_variable(SharedVariable* sv) {
+	int i;
 	// You can initialize the shared variable if needed.
 	sv->bProgramExit = 0;
 	//sv->ign = 0;
@@ -13,6 +14,7 @@ void init_shared_variable(SharedVariable* sv) {
 	sv->trackAlarm = 0;
 	sv->touchCounter = 8;
 	sv->rgbState = 0;
+	for (i = 0; i < 8; i++) sv->counter[i] = 0;
 }
 
 void init_sensors(SharedVariable* sv) {
@@ -97,7 +99,6 @@ void body_rgbcolor(SharedVariable* sv) {
 		digitalWrite (PIN_RED, 0);
 		digitalWrite (PIN_GREEN, 0);
 		digitalWrite (PIN_BLUE, 255);
-		sv->rgbState = 0;		
 	} else 	if (sv->rgbState == 1) {
 		digitalWrite (PIN_RED, 255);
 		digitalWrite (PIN_GREEN, 255);
